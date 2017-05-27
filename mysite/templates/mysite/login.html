@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<form action="{% url 'mysite:index' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    Email <br>
+    <p><input id="id_em" type="text" name="email"/></p>
+    Password <br>
+    <p><input id="id_password" type="password" name="password"/></p>
+    <input type="submit" value="submit" />
+    {% if message %}
+        <font style="color:red">
+        {{ message }}
+        </font>
+    {% endif %}
+
+<a href="{% url 'mysite:register' %}">register</a>
+
+</form>
+</body>
+</html>

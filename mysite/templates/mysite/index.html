@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image library</title>
+</head>
+<body>
+<form action="{% url 'mysite:upload_file' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <p>
+        <input id="id_image" type="file" class="" name="image"/>
+    </p>
+    <input id="id_caption" type="text" name="caption"/>
+    <input type="submit" value="upload" />
+    {% if message %}
+        <font style="color:red">
+        {{ message }}
+        </font>
+    {% endif %}
+</br><br/><br/>
+</form>
+
+<a href="{% url 'mysite:logout' %}">logout</a>
+
+<br/><br/>
+<hr>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if images.has_previous %}
+            <a href="?page={{ images.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ images.number }} of {{ images.paginator.num_pages }}.
+        </span>
+
+        {% if images.has_next %}
+            <a href="?page={{ images.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+
+        <table>
+            {% for userImage in images %}
+                <tr>
+                    <td width="200px"><img src="/imagelib/{{ userImage.image.url }}" width="150px" height="150px"/></td>
+                    <td width="200px">{{ userImage.caption }}</td>
+                    <td>{{ userImage.pub_date }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+</body>
+</html>
